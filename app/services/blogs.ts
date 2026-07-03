@@ -1,43 +1,56 @@
+import { db } from "../../db"
+import { blogs } from "../../db/schema"
+import { eq, desc } from "drizzle-orm"
+import { getCurrentUser } from "./session"
+
 export type Blog = {
   id: number
   title: string
   author: string
   url: string
   likes: number
+  userId: number | null
 }
 
-let blogs: Blog[] = [
-  { id: 1, title: "Understanding Next.js App Router", author: "Matti Luukkainen", url: "https://example.com/1", likes: 5 },
-  { id: 2, title: "Mastering React Server Components", author: "Juha Tauriainen", url: "https://example.com/2", likes: 3 },
-  { id: 3, title: "Drizzle ORM for Beginners", author: "Outi Savolainen", url: "https://example.com/3", likes: 7 },
-]
-
-export function getBlogs() {
-  // Сортируем по убыванию лайков (самые популярные сверху)
-  return [...blogs].sort((a, b) => b.likes - a.likes)
+export async function getBlogs() {
+  const result = await db
+    .select()
+    .from(blogs)
+    .orderBy(desc(blogs.likes))
+  return result
 }
 
-export function getBlogById(id: number) {
-  return blogs.find(blog => blog.id === id)
+export async function getBlogById(id: number) {
+  const result = await db.select().from(blogs).where(eq(blogs.id, id))
+  return result[0]
 }
 
-export function addBlog(title: string, author: string, url: string) {
-  const newBlog: Blog = {
-    id: blogs.length + 1,
-    title,
-    author,
-    url,
-    likes: 0,
+export async function addBlog(title: string, author: string, url: string) {
+  const user = await getCurrentUser()
+  if (!user) {
+    throw new Error("Not logged in")
   }
-  blogs.push(newBlog)
-  return newBlog
+
+  const result = await db
+    .insert(blogs)
+    .values({
+      title,
+      author,
+      url,
+      userId: user.id,
+    })
+    .returning()
+  return result[0]
 }
 
-export function toggleLike(id: number) {
-  const blog = blogs.find(b => b.id === id)
-  if (blog) {
-    blog.likes += 1
-    return true
-  }
-  return false
+export async function toggleLike(id: number) {
+  const blog = await getBlogById(id)
+  if (!blog) return false
+
+  await db
+    .update(blogs)
+    .set({ likes: blog.likes + 1 })
+    .where(eq(blogs.id, id))
+
+  return true
 }

@@ -1,0 +1,17 @@
+import { auth } from "@/auth"
+import { eq } from "drizzle-orm"
+import { db } from "../../db"
+import { users } from "../../db/schema"
+
+export async function getCurrentUser() {
+  const session = await auth()
+  if (!session?.user?.email) {
+    return null
+  }
+
+  const user = await db.query.users.findFirst({
+    where: eq(users.username, session.user.email),
+  })
+
+  return user
+}
