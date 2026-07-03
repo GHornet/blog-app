@@ -1,41 +1,73 @@
-<<<<<<< HEAD
-# blog-app
-next.js project
-=======
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Blog App — Full Stack Open Next.js Project
 
-## Getting Started
+This is a full-stack blog application built with Next.js (App Router), React Server Components, Server Actions, Drizzle ORM, PostgreSQL (Neon), NextAuth.js, and Tailwind CSS. It's the final project for the Full Stack Open course's Next.js module.
 
-First, run the development server:
+## 🚀 Live Demo
 
-```bash
+The application is deployed on Vercel and available at:  
+👉 [https://blog-app-wheat-eta.vercel.app/](https://blog-app-wheat-eta.vercel.app/)
+
+## 🔧 Features
+
+- **Authentication** — Login and registration with NextAuth.js and bcrypt.
+- **Blog posts** — Create, view, like, and search blogs.
+- **User profiles** — Each user has a public page with their blogs.
+- **Reading list** — Logged-in users can add blogs to a reading list, mark them as read, and see them grouped.
+- **API token** — Users can generate a personal API token and access their data via `/api/me` with Bearer token authentication.
+- **Responsive styling** — Tailwind CSS for a clean, modern UI.
+- **End-to-end tests** — Passes all 28 Playwright tests provided by the course.
+
+## 🛠️ Tech Stack
+
+- [Next.js 16+](https://nextjs.org/) (App Router)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Drizzle ORM](https://orm.drizzle.team/)
+- [PostgreSQL](https://www.postgresql.org/) (Neon on Vercel)
+- [NextAuth.js](https://next-auth.js.org/) (Auth.js)
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Playwright](https://playwright.dev/) for e2e testing
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or later)
+- PostgreSQL database (you can use Vercel Postgres/Neon locally)
+
+### Installation
+
+1. Clone the repository:
+   git clone https://github.com/GHornet/blog-app.git
+   cd blog-app
+
+Install dependencies:
+npm install
+Set up environment variables:
+Create a .env.local file in the root with the following (replace with your values):
+DATABASE_URL=postgresql://...
+AUTH_SECRET=your-secret-key
+NEXTAUTH_SECRET=your-secret-key
+NEXTAUTH_URL=http://localhost:3000
+
+Run database migrations:
+npx drizzle-kit migrate
+
+Start the development server:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open http://localhost:3000 in your browser.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🧪 Running Tests
+To run the end-to-end tests with Playwright:
+npm run test:e2e -- --workers=1
+All 28 tests should pass.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🌐 Deployment
+The app is designed to be deployed on Vercel. Just push the code to a GitHub repository and connect it to Vercel — it will automatically pick up the environment variables (database, auth secret, etc.) from the Vercel dashboard.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+📚 Acknowledgements
+This project is based on the material of the Full Stack Open course (Part 0 — Next.js). Special thanks to the course staff and the open-source community.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
->>>>>>> d611cc3 (first)
+Author: GHornet
+GitHub: [GHornet](https://github.com/GHornet)
+Live Demo: blog-app-wheat-eta.vercel.app
