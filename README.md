@@ -41,21 +41,23 @@ The application is deployed on Vercel and available at:
    git clone https://github.com/GHornet/blog-app.git
    cd blog-app
 
-Install dependencies:
-npm install
-Set up environment variables:
-Create a .env.local file in the root with the following (replace with your values):
-DATABASE_URL=postgresql://...
-AUTH_SECRET=your-secret-key
-NEXTAUTH_SECRET=your-secret-key
-NEXTAUTH_URL=http://localhost:3000
+2. Install dependencies:
+   npm install
 
-Run database migrations:
-npx drizzle-kit migrate
+3. Set up environment variables:
+   Create a .env.local file in the root with the following (replace with your values):
+   DATABASE_URL=postgresql://...
+   AUTH_SECRET=your-secret-key
+   NEXTAUTH_SECRET=your-secret-key
+   NEXTAUTH_URL=http://localhost:3000
 
-Start the development server:
-npm run dev
-Open http://localhost:3000 in your browser.
+4. Run database migrations:
+   npx drizzle-kit migrate
+
+5. Start the development server:
+   npm run dev
+
+6. Open http://localhost:3000 in your browser.
 
 🧪 Running Tests
 To run the end-to-end tests with Playwright:
@@ -69,5 +71,7 @@ The app is designed to be deployed on Vercel. Just push the code to a GitHub rep
 This project is based on the material of the Full Stack Open course (Part 0 — Next.js). Special thanks to the course staff and the open-source community.
 
 Author: GHornet
+
 GitHub: [GHornet](https://github.com/GHornet)
+
 Live Demo: blog-app-wheat-eta.vercel.app
